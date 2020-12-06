@@ -1,4 +1,4 @@
-import 'package:bookini/screens/home/home.dart';
+import 'package:bookini/screens/authenticate/authenticate.dart';
 import 'package:flutter/material.dart';
 
 class Wrapper extends StatelessWidget {
@@ -6,7 +6,7 @@ class Wrapper extends StatelessWidget {
   Widget build(BuildContext context) {
     
     // return either the Home or Authenticate widget
-    return Home();
+    return Authenticate();
     
   }
 }
