@@ -1,30 +1,73 @@
-import 'package:bookini/services/auth.dart';
+import 'package:bookini/models/UserData.dart';
+import 'package:bookini/models/brew.dart';
+import 'package:bookini/screens/home_screen.dart';
+import 'package:bookini/screens/profile/Profile.dart';
+import 'package:bookini/screens/settings/SettingsPage.dart';
 import 'package:flutter/material.dart';
+import 'package:bookini/services/database.dart';
+import 'package:provider/provider.dart';
+import 'brewlist.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
+  @override
+  _Home createState() => _Home();
 
-  final AuthService _auth = AuthService();
+}
+
+class _Home extends State<Home> {
+  int globalIndex =0 ;
+  int _currentIndex =0 ;
+  final tabs = [
+    HomeScreen(),
+    Profile(),
+    SettingsPage()
+  ];
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+
+    return StreamProvider<List<MyData>>.value(
+      value:DatabaseService().users ,
+      child :StreamProvider<List<Brew>>.value(
+      value: DatabaseService().brews,
       child: Scaffold(
         backgroundColor: Colors.brown[50],
         appBar: AppBar(
-          title: Text('Bookini'),
-          backgroundColor: Colors.brown[400],
+          
+          backgroundColor: Colors.brown[50],
           elevation: 0.0,
           actions: <Widget>[
             FlatButton.icon(
-              icon: Icon(Icons.person),
-              label: Text('logout'),
+              icon: Icon(Icons.settings),
+              label: Text(''),
               onPressed: () async {
-                await _auth.signOut();
+                setState(() {
+                  globalIndex = 2;
+                });
               },
             ),
           ],
         ),
-      ),
-    );
+        body: tabs[globalIndex],
+        bottomNavigationBar:BottomNavigationBar(
+          currentIndex: _currentIndex,
+          type: BottomNavigationBarType.fixed,
+          items: [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: "home",),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person),
+              label: "Profile",)
+          ],
+          onTap: (index){
+            setState(() {
+              _currentIndex = index;
+              globalIndex = index;
+            });
+          },
+          )
+        ),
+    ));
   }
 }

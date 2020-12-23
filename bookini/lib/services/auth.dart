@@ -1,10 +1,11 @@
 import 'package:bookini/models/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'database.dart';
 
 class AuthService {
-
+  
   final FirebaseAuth _auth = FirebaseAuth.instance;
-
+  
   // create Myuser obj based on firebase user
   MyUser _userFromFirebaseUser(User user) {
     return user != null ? MyUser(uid: user.uid) : null;
@@ -35,20 +36,23 @@ class AuthService {
       User user = result.user;
       return user;
     } catch (error) {
-      print(error.toString());
       return null;
     } 
   }
   
 
   // register with email and password
-  Future registerWithEmailAndPassword(String email, String password) async {
+  Future registerWithEmailAndPassword(String email, String password  ,String userName) async {
     try {
+      
+      //create user 
       UserCredential result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
       User user = result.user;
+      //create user's data
+      await DatabaseService(uid: user.uid).updakteUserData("Bookini User", "UnKnown", "" , "" ,userName);
       return _userFromFirebaseUser(user);
+            
     } catch (error) {
-      print(error.toString());
       return null;
     } 
   }
@@ -61,5 +65,17 @@ class AuthService {
       return null;
     }
   }
+
+  // update user profile 
+  Future updateProfile(String fullname,String location, String phone ,String bio ) async {
+    try {
+      await DatabaseService(uid: _auth.currentUser.uid).updakteUserData(fullname, location, phone , bio,'');
+      return _userFromFirebaseUser(_auth.currentUser);
+    } catch (error) {
+      print(error.toString());
+      return null;
+    } 
+  }
+  
 
 }

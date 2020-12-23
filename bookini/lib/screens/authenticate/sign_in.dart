@@ -28,18 +28,6 @@ class _SignInState extends State<SignIn> {
   Widget build(BuildContext context) {
     return loading ? Loading() : Scaffold(
       backgroundColor: Colors.brown[100],
-      appBar: AppBar(
-        backgroundColor: Colors.brown[400],
-        elevation: 0.0,
-        title: Text('Sign in to Bookini'),
-        actions: <Widget>[
-          FlatButton.icon(
-            icon: Icon(Icons.person),
-            label: Text('Register'),
-            onPressed: () => widget.toggleView(),
-          ),
-        ],
-      ),
       body: Container(
         padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
         child: Form(
@@ -64,7 +52,10 @@ class _SignInState extends State<SignIn> {
                 },
               ),
               SizedBox(height: 20.0),
-              RaisedButton(
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  RaisedButton(
                 color: Colors.pink[400],
                 child: Text(
                   'Sign In',
@@ -82,6 +73,19 @@ class _SignInState extends State<SignIn> {
                     }
                   }
                 }
+              ),
+              RaisedButton(
+                color: Colors.white,
+                child: Text(
+                  'Sign Up',
+                  style: TextStyle(color: Colors.black54),
+                ),
+                onPressed: () => widget.toggleView(),
+
+
+
+              )
+                ],
               ),
               SizedBox(height: 12.0),
               Text(

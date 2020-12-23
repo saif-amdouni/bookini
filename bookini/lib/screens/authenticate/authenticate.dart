@@ -1,6 +1,9 @@
+import 'package:bookini/models/userName.dart';
 import 'package:bookini/screens/authenticate/register.dart';
 import 'package:bookini/screens/authenticate/sign_in.dart';
+import 'package:bookini/services/database.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Authenticate extends StatefulWidget {
   @override
@@ -20,7 +23,9 @@ class _AuthenticateState extends State<Authenticate> {
     if (showSignIn) {
       return SignIn(toggleView:  toggleView);
     } else {
-      return Register(toggleView:  toggleView);
+      return StreamProvider<List<UserName>>.value(
+      value:DatabaseService().username ,
+      child :Register(toggleView:  toggleView));
     }
   }
 }
