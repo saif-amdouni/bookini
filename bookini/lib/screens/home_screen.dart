@@ -1,4 +1,5 @@
 
+import 'package:bookini/models/collection_screen.dart';
 import 'package:bookini/screens/details_screen.dart';
 import 'package:bookini/screens/widgets/two_side_rounded_button.dart';
 import 'package:bookini/screens/widgets/reading_card_list.dart';
@@ -6,7 +7,9 @@ import 'package:bookini/screens/widgets/reading_card_list.dart';
 
 import 'package:flutter/material.dart';
 
+
 class HomeScreen extends StatelessWidget {
+  static const routeName ='/home';
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -20,7 +23,7 @@ class HomeScreen extends StatelessWidget {
               width: double.infinity,
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage("assets/images/main_page_bg.png"),
+                  image: AssetImage("assets/1_book.jpg"),
                   alignment: Alignment.topCenter,
                   fit: BoxFit.fitWidth,
                 ),
@@ -51,7 +54,7 @@ class HomeScreen extends StatelessWidget {
                     child: Row(
                       children: <Widget>[
                         ReadingListCard(
-                          image: "assets/images/book-1.png",
+                          image: "assets/2_book.jpg",
                           title: "Crushing & Influence",
                           auth: "Gary Venchuk",
                           rating: 4.9,
@@ -67,7 +70,7 @@ class HomeScreen extends StatelessWidget {
                           },
                         ),
                         ReadingListCard(
-                          image: "assets/images/book-2.png",
+                          image: "assets/2_book.jpg",
                           title: "Top Ten Business Hacks",
                           auth: "Herman Joel",
                           rating: 4.8,
@@ -111,7 +114,7 @@ class HomeScreen extends StatelessWidget {
                           height: 80,
                           width: double.infinity,
                           decoration: BoxDecoration(
-                            color: Colors.white,
+                            color: Colors.blue,
                             borderRadius: BorderRadius.circular(38.5),
                             boxShadow: [
                               BoxShadow(
@@ -140,13 +143,13 @@ class HomeScreen extends StatelessWidget {
                                                 CrossAxisAlignment.start,
                                             children: <Widget>[
                                               Text(
-                                                "Crushing & Influence",
+                                                "check my Book Collection",
                                                 style: TextStyle(
                                                   fontWeight: FontWeight.bold,
                                                 ),
                                               ),
                                               Text(
-                                                "Gary Venchuk",
+                                                "",
                                                 style: TextStyle(
                                                  
                                                 ),
@@ -155,7 +158,7 @@ class HomeScreen extends StatelessWidget {
                                                 alignment:
                                                     Alignment.bottomRight,
                                                 child: Text(
-                                                  "Chapter 7 of 10",
+                                                  "",
                                                   style: TextStyle(
                                                     fontSize: 10,
                                                     
@@ -167,7 +170,7 @@ class HomeScreen extends StatelessWidget {
                                           ),
                                         ),
                                         Image.asset(
-                                          "assets/images/book-1.png",
+                                          "assets/1_book.jpg",
                                           width: 55,
                                         )
                                       ],
@@ -188,11 +191,18 @@ class HomeScreen extends StatelessWidget {
                         ),
                         SizedBox(height: 40),
                       ],
+
                     ),
                   ),
                 ],
               ),
             ),
+        InkWell(
+            onTap: (){
+              Navigator.of(context).pushReplacementNamed(collection_screen.routeName);
+            },
+            child: new Container()
+        ),
           ],
         ),
       ),
@@ -273,7 +283,7 @@ class HomeScreen extends StatelessWidget {
             right: 0,
             top: 0,
             child: Image.asset(
-              "assets/images/book-2.png",
+              "assets/2_book.jpg.png",
               width: size.width * .37,
             ),
           ),
